@@ -9,13 +9,17 @@ spring:
   application:
     name: eureka-client-subject
 words: I,You,He,She,It
-
+server:
+  port: 8014
+  
 ---
 spring:
   profiles: verb
   application:
     name: eureka-client-verb
 words: ran,knew,had,saw,bought
+server:
+  port: 8015
 
 ---
 spring:
@@ -23,6 +27,8 @@ spring:
   application:
     name: eureka-client-article
 words: a,the
+server:
+  port: 8016
 
 ---
 spring:
@@ -30,6 +36,8 @@ spring:
   application:
     name: eureka-client-adjective
 words: reasonable,leaky,suspicious,ordinary,unlikely
+server:
+  port: 8017
 
 ---
 spring:
@@ -37,10 +45,14 @@ spring:
   application:
     name: eureka-client-noun
 words: boat,book,vote,seat,backpack,partition,groundhog
+server:
+  port: 8018
 
 ---
 spring:
   profiles: noun2
   application:
     name: eureka-client-noun
-words: noun2  
+words: noun2
+server:
+  port: 8019
