@@ -36,4 +36,11 @@ spring:
   profiles: noun
   application:
     name: eureka-client-noun
-words: boat,book,vote,seat,backpack,partition,groundhog  
+words: boat,book,vote,seat,backpack,partition,groundhog
+
+---
+spring:
+  profiles: noun2
+  application:
+    name: eureka-client-noun
+words: noun2  
