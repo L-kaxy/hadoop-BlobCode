@@ -1,33 +1,83 @@
+package com.l_kaxy.hadoop.mapreduce;
+
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
 public class WordCount {
-	
-	public static class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+
+	public static class WordCountMapper extends
+			Mapper<LongWritable, Text, Text, IntWritable> {
+
+		private Text mapOutputkey = new Text();
+		private final static IntWritable mapOutputValue = new IntWritable(1);
 
 		@Override
-		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+		public void map(LongWritable key, Text value, Context context)
+				throws IOException, InterruptedException {
+			String lineValue = value.toString();
 
+			// split
+			StringTokenizer stringTokenizer = new StringTokenizer(lineValue);
+
+			// iterator
+			while (stringTokenizer.hasMoreTokens()) {
+				// word
+				String wordValue = stringTokenizer.nextToken();
+				// set key
+				mapOutputkey.set(wordValue);
+				// output
+				context.write(mapOutputkey, mapOutputValue);
+			}
 		}
 
 	}
 
-	public static class WordCountReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+	public static class WordCountReducer extends
+			Reducer<Text, IntWritable, Text, IntWritable> {
 
+		private IntWritable mapOutputValue = new IntWritable();
+		
 		@Override
-		public void reduce(Text key, IntWritable value, Context context) throws IOException, InterruptedException {
+		protected void reduce(Text key, Iterable<IntWritable> values,
+				Context context) throws IOException, InterruptedException {
 
+			int sum = 0;
+			// iterator
+			for (IntWritable value : values) {
+				sum += value.get();
+			}
+
+			// set value
+			mapOutputValue.set(sum);
+			
+			// output
+			context.write(key, mapOutputValue);
 		}
 
 	}
 
-	public static int run(String[] args) throws Exception {
+	public int run(String[] args) throws Exception {
 
 		// get configuration
 		Configuration configuration = new Configuration();
 
 		// create job
-		Job job = Job.getInstance(configuration, this.getClass().getSimpleName());
+		Job job = Job.getInstance(configuration, this.getClass()
+				.getSimpleName());
 
 		// run jar
-		job.setJarClass(this.getClass());
+		job.setJarByClass(this.getClass());
 
 		// input
 		Path inPath = new Path(args[0]);
