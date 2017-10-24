@@ -23,9 +23,21 @@ public class ModuleMapReduce extends Configured implements Tool {
 			Mapper<LongWritable, Text, Text, IntWritable> {
 
 		@Override
+		public void setup(Context context)
+				throws IOException, InterruptedException {
+			// Nothing
+		}
+  
+		@Override
 		public void map(LongWritable key, Text value, Context context)
 				throws IOException, InterruptedException {
 			// TODO:
+		}
+
+		@Override
+		public void cleanup(Context context) throws IOException,
+				InterruptedException {
+			// Nothing
 		}
 
 	}
@@ -35,9 +47,21 @@ public class ModuleMapReduce extends Configured implements Tool {
 			Reducer<Text, IntWritable, Text, IntWritable> {
 
 		@Override
-		protected void reduce(Text key, Iterable<IntWritable> values,
+		public void setup(Context context)
+				throws IOException, InterruptedException {
+			// Nothing
+		}
+		
+		@Override
+		public void reduce(Text key, Iterable<IntWritable> values,
 				Context context) throws IOException, InterruptedException {
 			// TODO:
+		}
+		
+		@Override
+		public void cleanup(Context context) throws IOException,
+				InterruptedException {
+			// Nothing
 		}
 
 	}
