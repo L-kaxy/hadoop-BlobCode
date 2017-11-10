@@ -5,7 +5,7 @@ import org.apache.hadoop.io.Text;
  
 public final class RemoveQuotesUDF extends UDF {
 	public Text evaluate(final Text s) {
-		Text result = null
+		Text result = new Test();
 		if (s != null) {
 			result = new Text(s.toString().replaceAll("\"", ""));
 		}
