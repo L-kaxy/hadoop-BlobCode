@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.DriverManager;
  
-public class HiveJdbcClient { 
+public class HiveJdbcClient {
   private static final String DIRVERNAME = "org.apache.hive.jdbc.HiveDriver";
  
   /**
