@@ -8,7 +8,7 @@ import org.apache.hadoop.io.WritableComparable;
 
 public class UserWritable implements WritableComparable<UserWritable> {
 
-	private int id;
+	private int id; 
 	private String name;
 
 	public UserWritable() {
